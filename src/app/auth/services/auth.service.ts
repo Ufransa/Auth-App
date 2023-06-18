@@ -51,7 +51,10 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/check-token`
     const token = localStorage.getItem('token')
 
-    if (!token) of(false)
+    if (!token) {
+      this.logout()
+      return of(false)
+    }
 
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
